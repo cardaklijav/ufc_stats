@@ -9,4 +9,4 @@ table_html = scrape_page(
 )
 
 df = pd.read_html(StringIO(table_html))[0]
-df.to_csv("events.csv", index=False, encoding="utf-8")
+df.to_csv("output/events.csv", index=False, encoding="utf-8")

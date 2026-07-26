@@ -57,3 +57,6 @@ def scrape_fighters():
 
     os.makedirs("output", exist_ok=True)
     df.to_csv(OUTPUT_PATH, index=False, encoding="utf-8-sig")
+
+if __name__ == "__main__":
+    scrape_fighters()

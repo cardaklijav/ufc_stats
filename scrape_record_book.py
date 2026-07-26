@@ -38,4 +38,4 @@ df = df.reset_index()
 print(df.shape)
 print(df.head())
 
-df.to_csv("record_book.csv", index=False, encoding="utf-8-sig")
+df.to_csv("output/record_book.csv", index=False, encoding="utf-8-sig")
