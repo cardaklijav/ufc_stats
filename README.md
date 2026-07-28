@@ -50,3 +50,48 @@ python build_dataset.py            # produces output/training_dataset.csv
 
 `scrape_events.py` and `scrape_record_book.py` are optional — their output
 is not used in the final training dataset.
+
+## Dataset Columns (`output/training_dataset.csv`)
+
+One row = one fight. `fighter_*` / `opponent_*` prefixes mark which side
+of the fight each stat belongs to.
+
+### Fight info
+| Column | Description |
+|---|---|
+| `Event` | Name and date of the event the fight took place at |
+| `Method` | How the fight ended (e.g. `S-DEC`, `KO/TKO`, `SUB`) |
+| `Round` | Round the fight ended in |
+| `Time` | Time within that round the fight ended |
+| `fighter_won` | **Target column.** `1` if `fighter_name` won, `0` if they lost |
+
+### Fight-specific stats (this fight only)
+| Column | Description |
+|---|---|
+| `fighter_name` / `opponent_name` | Fighter names for this fight |
+| `fighter_kd` / `opponent_kd` | Knockdowns landed in this fight |
+| `fighter_str` / `opponent_str` | Significant strikes landed in this fight |
+| `fighter_td` / `opponent_td` | Takedowns landed in this fight |
+| `fighter_sub` / `opponent_sub` | Submission attempts in this fight |
+| `Kd`, `Str`, `Td`, `Sub` | Raw unparsed originals (both fighters' values glued in one string) — superseded by the split columns above, kept for reference/debugging only |
+
+### Career stats (as of scrape date, not fight date)
+| Column | Description |
+|---|---|
+| `fighter_Height` / `opponent_Height` | Height |
+| `fighter_Weight` / `opponent_Weight` | Weight |
+| `fighter_Reach` / `opponent_Reach` | Reach |
+| `fighter_STANCE` / `opponent_STANCE` | Fighting stance (Orthodox, Southpaw, etc.) |
+| `fighter_DOB` / `opponent_DOB` | Date of birth |
+| `fighter_SLpM` / `opponent_SLpM` | Significant strikes landed per minute (career avg.) |
+| `fighter_Str. Acc.` / `opponent_Str. Acc.` | Significant striking accuracy (career avg.) |
+| `fighter_SApM` / `opponent_SApM` | Significant strikes absorbed per minute (career avg.) |
+| `fighter_Str. Def` / `opponent_Str. Def` | Significant strike defense — % of opponent strikes that did not land (career avg.) |
+| `fighter_TD Avg.` / `opponent_TD Avg.` | Average takedowns landed per 15 minutes (career avg.) |
+| `fighter_TD Acc.` / `opponent_TD Acc.` | Takedown accuracy (career avg.) |
+| `fighter_TD Def.` / `opponent_TD Def.` | Takedown defense — % of opponent takedowns that did not land (career avg.) |
+| `fighter_Sub. Avg.` / `opponent_Sub. Avg.` | Average submission attempts per 15 minutes (career avg.) |
+
+**Note:** career stats reflect the fighter's stats *at scrape time*, not
+their stats as of that specific historical fight — keep this in mind for
+older fights if using career stats as a feature.
