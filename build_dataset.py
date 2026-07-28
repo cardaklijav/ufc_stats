@@ -100,3 +100,4 @@ columns_to_drop = ["fighter_url", "opponent_url", "match_key", "W/L", "Fighter"]
 merged_df = merged_df.drop(columns=columns_to_drop, errors="ignore")
 
 merged_df.to_csv("output/training_dataset.csv", index=False, encoding="utf-8-sig")
+merged_df.to_pickle("output/training_dataset.pkl")
